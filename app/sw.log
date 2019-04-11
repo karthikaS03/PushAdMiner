@@ -1,0 +1,10 @@
+ERROR::Error: Navigation failed because browser has disconnected!
+Error: WebSocket is not open: readyState 3 (CLOSED)
+    at WebSocket.send (/usr/local/share/.config/yarn/global/node_modules/ws/lib/websocket.js:314:19)
+    at WebSocketTransport.send (/usr/local/share/.config/yarn/global/node_modules/puppeteer/lib/WebSocketTransport.js:57:14)
+    at Connection.send (/usr/local/share/.config/yarn/global/node_modules/puppeteer/lib/Connection.js:71:21)
+    at gracefullyCloseChrome (/usr/local/share/.config/yarn/global/node_modules/puppeteer/lib/Launcher.js:209:20)
+    at Browser.close (/usr/local/share/.config/yarn/global/node_modules/puppeteer/lib/Browser.js:276:31)
+    at Browser.<anonymous> (/usr/local/share/.config/yarn/global/node_modules/puppeteer/lib/helper.js:145:23)
+    at puppeteer.launch.then (/home/pptruser/app/capture_notifications.js:276:25)
+    at <anonymous>
