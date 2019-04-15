@@ -28,7 +28,7 @@ def execute_script(url, id, script_name,  iteration_count, container_timeout):
 	print(get_time() +'container_'+id+': Executing javascript')
 	container = client.containers.get('container_'+str(id))
 	stats = container.stats(decode=True)	
-	logs = container.exec_run(cmd=['node',script_name,url,id,iteration_count], user=docker_user,stdout=True, stderr=True, detach=True)
+	logs = container.exec_run(cmd=['node',script_name,url,id,str(iteration_count)], user=docker_user,stdout=True, stderr=True, detach=True)
 	time.sleep(container_timeout-20)
 	print(get_time() +'container_'+id+': Execution complete!!')	
 
@@ -84,16 +84,17 @@ def docker_prune():
     try:
         client.containers.prune()		
     except Exception as e:
-        print e	
+        print(e	)
 
 
 def test():
     remove_containers()
-    initiate_container('https://blacktv.tk/','201', 'capture_notifications.js', 120 )
+    initiate_container('https://blacktv.tk/','201', 'capture_permission_requests.js',0, 200 )
+    '''
     stop_container('201')
     export_container('201','0')
     time.sleep(10)
-    resume_container('https://blacktv.tk/','201','capture_notifications.js',600)
-    
+    resume_container('https://blacktv.tk/','201','capture_notifications.js',0,600)
+    '''
 if __name__== "__main__":
     test()
