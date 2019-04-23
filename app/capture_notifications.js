@@ -7,21 +7,23 @@ const nexus = devices['Nexus 5'];
 var fs = require('fs');
 var fs_extra = require('fs-extra')
 
+
 process.on('unhandledRejection', error => {
-	// Prints "unhandledRejection woops!"
+  // Prints "unhandledRejection woops!"
+  console.log(site_id+' :: '+url)
 	console.log('unhandledRejection', error);
 });
 
-async function load_page(url,id,i_count){
+async function load_page(url,id,i_count,wait_time){
   var count = 0
-
+  
   // Viewport && Window size
   const width = 1360
   const height = 1020
-
+  
   await puppeteer.launch({ headless:false,  executablePath:'/home/pptruser/chromium/chrome',
                            userDataDir:'/home/pptruser/chrome_user/',
-                           args: ["--enable-logging="+id+".log",
+                           args: [
                                 '--enable-features=NetworkService',
                                 '--no-sandbox',
                                 '--disable-setuid-sandbox',
@@ -35,7 +37,7 @@ async function load_page(url,id,i_count){
         var stream = fs.createWriteStream(sw_log_dir+id+"_sw.log");
        
         try{
-          var the_interval = 900 *1000 //in milliseconds
+          var the_interval = wait_time *1000 //in milliseconds
           var page_dir = '/home/pptruser/screenshots/'+id+'/pages/'
           
           var resources_path = '/home/pptruser/resources/'+id+'/'
@@ -50,7 +52,7 @@ async function load_page(url,id,i_count){
               if(target._targetInfo.type=='page'){
                 
                 await setTimeout(async function() {                  
-                    var screenshot = require('screenshot-desktop');          
+                   var screenshot = require('screenshot-desktop');
                     var dir = '/home/pptruser/screenshots/'+id
                     if (!fs.existsSync(dir)){
                       fs.mkdirSync(dir);
@@ -59,14 +61,15 @@ async function load_page(url,id,i_count){
                     if (!fs.existsSync(dir)){
                           fs.mkdirSync(dir);
                     }
+                    var p = await target.page()
+                    //await p.screenshot({ path: dir+id+'_'+i_count+'_'+target._targetId+'_page.png', type: 'png' });
+
                     var file_name = dir+id+'_'+i_count+'_'+target._targetId+'.png';
                     await screenshot({screen:'screen',filename:file_name}).then(function(complete) {													
                         return ''
-                    });
-                    var p = await target.page()
-                    //await p.screenshot({ path: dir+id+target._targetId+'_page.png', type: 'png' });
+                    });                    
                     await p.close()
-                }, 30000)		
+                }, 300000)		
             }
           })
           
@@ -77,6 +80,21 @@ async function load_page(url,id,i_count){
 
           const context = browser.defaultBrowserContext();
           
+          await setTimeout(async function() {                  
+            var screenshot = require('screenshot-desktop');
+             var dir = '/home/pptruser/screenshots/'+id
+             if (!fs.existsSync(dir)){
+               fs.mkdirSync(dir);
+             }
+             dir = dir +'/pages/'
+             if (!fs.existsSync(dir)){
+                   fs.mkdirSync(dir);
+             }
+             var file_name = dir+id+'_'+i_count+'_initial'+'.png';
+             await screenshot({screen:'screen',filename:file_name}).then(function(complete) {													
+                 return ''
+             });
+         }, 15000)		
           
           /** Log site details */
           stream.write('[Visiting Page started @ '+new Date(Date.now()).toLocaleString()+' ]');
@@ -128,7 +146,7 @@ async function load_page(url,id,i_count){
                   await screenshot({screen:'screen',filename:dir+ids[1]+'_push.png'}).then(function(complete) {													
                       return ''
                   });
-                }, 100)
+                }, 15000)
                 stream.write('\t***')              
                 stream.write('\n')
                 stream.write('\t\t[Service Worker Request called @ '+new Date(Date.now()).toLocaleString() + ' ]')   
@@ -149,7 +167,7 @@ async function load_page(url,id,i_count){
                     //console.log(req._redirectChain)
                     var redirect_chain = req._redirectChain
                     if (redirect_chain.length>0){
-                      redirect_chain.array.forEach(redirect => {                     
+                      redirect_chain.forEach(redirect => {                     
                         stream.write('\t\tRedirect Origin :: ' + redirect._headers.referer)  
                         stream.write('\n')                    
                         stream.write('\t\tRedirect URL :: ' + redirect.url())
@@ -166,23 +184,46 @@ async function load_page(url,id,i_count){
             }       
           })
 
-          await page.goto(url, {waitUntil: 'networkidle0',timeout: 90000});
-          await page.waitFor(4000); 
+          try{
+            console.log('visiting page')
+            await page.goto(url);
+          }
+          catch(err){
+            console.log(id+" :: page load timeout")
+          }
+          //await page.waitFor(4000); 
+          console.log('page visited')
+          console.log(the_interval)
           var wait_interval = 7500
           count=0          
           
           var trigger = await setInterval(async function() {
-            if (count == the_interval ){      
+            if (count >= the_interval ){      
               console.log(new Date(Date.now()).toLocaleString())
               stream.write('[Visiting Page ended @ '+new Date(Date.now()).toLocaleString()+' ]')
               stream.write('\n')
               stream.write('\n')
+              //await browser.close();
+              console.log('visit ended')    
               clearInterval(trigger);      
-              //await browser.disconnect();
-              
+              await process_ended(id)
+                       
             }
-            count = count+wait_interval
-            console.log(count)
+            count = count+wait_interval     
+            //console.log(count)
+            var screenshot = require('screenshot-desktop');
+            var dir = '/home/pptruser/screenshots/'+id
+            if (!fs.existsSync(dir)){
+              fs.mkdirSync(dir);
+            }
+            dir = dir +'/pages/'
+            if (!fs.existsSync(dir)){
+                  fs.mkdirSync(dir);
+            }
+            var file_name = dir+id+'_'+count+'_status'+'.png';
+            await screenshot({screen:'screen',filename:file_name}).then(function(complete) {													
+                return ''
+            });
             await browser.serviceWorkers().then(async function(service_workers) {	
               //console.log(service_workers)	
               if (service_workers.length>0){
@@ -198,15 +239,19 @@ async function load_page(url,id,i_count){
                     //stream.write('\n')
                     sw.on('response',  async res => {
                       //stream.write(res.url())  
+                      try{
                       var file_name = res.url().split('/').pop()
                       var text = await res.text()
                       fs.writeFile(resources_path+file_name, text, 'utf8', (err) => {              
                         stream.write('\t\tResponse file saved');
-                      });
+                      });}
+                      catch(error){
+                        console.log('response text no body found')
+                      }
                       //await console.log(text)    
                     })                     
                     sw.on('request',  async req => {
-
+                     /*
                     setTimeout(async function() {                  
                         var screenshot = require('screenshot-desktop');
                         var ids = req._requestId.split('.')
@@ -221,7 +266,7 @@ async function load_page(url,id,i_count){
                         await screenshot({screen:'screen',filename:dir+ids[1]+'_push.png'}).then(function(complete) {													
                             return ''
                         });
-                      }, 100)
+                      }, 100)*/
                       stream.write('\t***')              
                       stream.write('\n')
                       stream.write('\t\t[Service Worker Request called @ '+new Date(Date.now()).toLocaleString() + ' ]')   
@@ -263,25 +308,13 @@ async function load_page(url,id,i_count){
             //await page.close()
           })
         }, wait_interval);
-        /*
-       var trigger = await setInterval(async function() {
-        if (count == the_interval ){      
-          console.log(new Date(Date.now()).toLocaleString())
-          stream.write('[Visiting Page ended @ '+new Date(Date.now()).toLocaleString()+' ]')
-          stream.write('\n')
-          stream.write('\n')
-          clearInterval(trigger);      
-          await browser.close();
-          
-        }
-        count = count+wait_interval
-        console.log(count)
-      }, wait_interval);
-*/
+  
         }
         catch(error){
-          console.log('ERROR::'+error)          
-          await browser.close();
+          stream.write('ERROR::'+error)        
+          console.log(error)
+          return  
+          //await browser.close();
           /*
           await fs_extra.move('/home/pptruser/chromium/chrome_debug.log', '/home/pptruser/logs/notification_'+(id)+'.log', function (err) {
               if (err) 
@@ -294,12 +327,18 @@ async function load_page(url,id,i_count){
   });
   return true
 };
-
 const timeoutPromise = (timeout) => new Promise((resolve) => setTimeout(resolve, timeout));
 
-async function crawl_url(url, id, i_count){
+async function process_ended(id){
+  console.log('crawl process ended :: '+id) 	
+}
+
+async function crawl_url(url, id, i_count,timeout){
       try{
-        await load_page(url,id. i_count)    	
+        console.log('crawling started :: ' +id)
+        await load_page(url,id, i_count,timeout)   
+        //await timeoutPromise(timeout)
+        
       }
       catch(error){
         console.log(error)        
@@ -308,7 +347,11 @@ async function crawl_url(url, id, i_count){
 
 if (process.argv[2]) {
   var url = process.argv[2];
-  var id =process.argv[3];
+  var site_id =process.argv[3];  
   var i_count = process.argv[4];
-  crawl_url(url,id, i_count)
+  var timeout = process.argv[5];
+  
+  
+  crawl_url(url,site_id,i_count,timeout)
+  
 }
