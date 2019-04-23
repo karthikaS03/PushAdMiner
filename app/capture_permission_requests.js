@@ -1,5 +1,7 @@
 const puppeteer = require('puppeteer');
 var fs_extra = require('fs-extra')
+var fs = require('fs');
+
 
 process.on('unhandledRejection', error => {
 	console.log('unhandledRejection', error);
@@ -16,17 +18,39 @@ load_page = function(url,id){
 				'--window-size=${ width },${ height }'
 			]
 		}).then(async browser => {
-			const page = await browser.newPage();			
-			await page.setViewport({ width, height })
-			await page.goto(url,{waitUntil: 'networkidle0', timeout: 100000});
-			await page.waitFor(6000);			
-			await browser.close();
-			await fs_extra.move('/home/pptruser/chromium/chrome_debug.log', '/home/pptruser/logs/permission_'+(id)+'.log', function (err) {
-					if (err) 
-						console.log("LOG::error saving")
-					else
-						console.log("LOG::saved")
-				 })
+			var sw_log_dir = '/home/pptruser/logs/'
+			var stream = fs.createWriteStream(sw_log_dir+id+"_sw.log");
+			try{
+				const page = await browser.newPage();			
+				await page.setViewport({ width, height })
+				
+				
+			 	/** Log site details */
+				stream.write('[Visiting Page started @ '+new Date(Date.now()).toLocaleString()+' ]');
+				stream.write('\n')
+				stream.write('\tID :: ' +id);
+				stream.write('\n')
+				stream.write('\tURL :: ' +url) 
+				stream.write('\n')
+				await page.goto(url,{waitUntil: 'networkidle0', timeout: 300000});
+				stream.write('\n[Page Load Complete @ '+new Date(Date.now()).toLocaleString()+' ]')
+				await page.waitFor(6000);			
+				await browser.close();
+				stream.write('[Visiting Page ended @ '+new Date(Date.now()).toLocaleString()+' ]');
+				stream.end();				
+				/*
+				await fs_extra.move('/home/pptruser/chromium/chrome_debug.log', '/home/pptruser/logs/permission_'+(id)+'.log', function (err) {
+						if (err) 
+							console.log(err)
+						else
+							console.log("LOG::saved")
+					 })*/
+			}
+			catch(error){
+				stream.write('[Chromium Crashed @ '+new Date(Date.now()).toLocaleString()+' ]');
+				stream.write('Error ::' + error)
+				stream.end();
+			}
 		});
 }
 
