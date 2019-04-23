@@ -18,7 +18,7 @@ vols = { docker_shared_dir_root + '/app'              :{'bind':docker_container_
 permission_collection_script   = 'capture_permission_requests.js'
 notification_collection_script = 'capture_notifications.js'
 
-CRAWL_MAX_CONTAINERS = 10
-CRAWL_TIMEOUT = 180
+CRAWL_MAX_CONTAINERS = 50
+CRAWL_TIMEOUT = 340
 ANALYSIS_MAX_CONTAINERS = 3
 ANALYSIS_TIMEOUT = 930
