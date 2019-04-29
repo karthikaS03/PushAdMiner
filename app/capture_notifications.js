@@ -69,7 +69,7 @@ async function load_page(url,id,i_count,wait_time){
                         return ''
                     });                    
                     await p.close()
-                }, 300000)		
+                }, 180000)		
             }
           })
           
@@ -207,10 +207,11 @@ async function load_page(url,id,i_count,wait_time){
               console.log('visit ended')    
               clearInterval(trigger);      
               await process_ended(id)
-                       
+              return   
             }
             count = count+wait_interval     
             //console.log(count)
+
             var screenshot = require('screenshot-desktop');
             var dir = '/home/pptruser/screenshots/'+id
             if (!fs.existsSync(dir)){
@@ -220,10 +221,12 @@ async function load_page(url,id,i_count,wait_time){
             if (!fs.existsSync(dir)){
                   fs.mkdirSync(dir);
             }
-            var file_name = dir+id+'_'+count+'_status'+'.png';
+            var file_name = dir+id+'_'+i_count+'_'+count+'_status.png';
             await screenshot({screen:'screen',filename:file_name}).then(function(complete) {													
                 return ''
             });
+
+
             await browser.serviceWorkers().then(async function(service_workers) {	
               //console.log(service_workers)	
               if (service_workers.length>0){
