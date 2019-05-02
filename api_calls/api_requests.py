@@ -11,6 +11,15 @@ dir_path = '../seed_lists/'
 insert_api_url = 'https://oyi4twvq77.execute-api.us-east-2.amazonaws.com/default/notification-db-add?'
 fetch_api_url = 'https://2zbo3zz9q9.execute-api.us-east-2.amazonaws.com/default/notification-db-insert?'
 update_api_url = 'https://4h39mccr97.execute-api.us-east-2.amazonaws.com/default/notification-db-update?'
+insert_api_info = 'https://2kq3sya8jl.execute-api.us-east-2.amazonaws.com/default/notification_visit_info_add?'
+
+
+def add_visit_info(info):
+    api_url = "{}id={}&status={}&per_req={}&sw_reg={}&error={}&crash_log={}"
+    api_url = api_url.format(insert_api_info,info['id'],info['status'],info['permission_req_at'],info['sw_reg_at'],info['error'],info['crash_log'])
+    resp = requests.get(url=api_url)
+    return resp.json()
+
 
 def insert_record(url,keyword):
     query_string='seed_url='+url+'&seed_keyword='+keyword
