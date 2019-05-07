@@ -1,0 +1,53 @@
+[Visiting Page started @ 3/13/2019, 1:57:08 PM ]
+	ID :: 9601
+	URL :: https://www.androidalerts.site/en/p/?cid=wN7KRG1GOOGQOSDI16M6UF8S
+	***
+		[Service Worker Registered @ 3/13/2019, 1:57:09 PM ]
+		SW URL :: https://www.androidalerts.site/en/p/sw.js
+	***
+		SW Status :: Active
+	***
+		[Service Worker Request called @ 3/13/2019, 1:57:09 PM ]
+		Request Id :: 6977.14
+		Request Origin :: https://www.androidalerts.site/en/p/sw.js
+		Request URL :: https://www.androidalerts.site/en/p/sw.js
+	***
+	***
+		[Service Worker Request called @ 3/13/2019, 2:05:34 PM ]
+		Request Id :: 7555.3
+		Request Origin :: https://www.androidalerts.site/en/p/sw.js
+		Request URL :: https://adanny-indwance.com/impression/a2c6f988-93f1-4ab2-a9cf-5a798fd15584?Heading=Google&Body=Your%20device%20is%20infected!&Category=AV&CatID=12345&Image=https://www.mediadownload.site/images/u/util-48.png&MsgID=2019-03-13%2014:00:00&AppID={AppID}&Source=undefined&Banner=&UserID=2404223
+	***
+	***
+		[Service Worker Request called @ 3/13/2019, 2:05:34 PM ]
+		Request Id :: 7555.4
+		Request Origin :: https://www.androidalerts.site/en/p/sw.js
+		Request URL :: https://www.mediadownload.site/images/u/util-48.png
+	***
+	***
+		[Service Worker Request called @ 3/13/2019, 2:05:34 PM ]
+		Request Id :: 7555.5
+		Request Origin :: https://www.androidalerts.site/en/p/sw.js
+		Request URL :: https://www.mediadownload.site/images/badges/badge-16.png
+	***
+	***
+		[Service Worker Request called @ 3/13/2019, 2:15:44 PM ]
+		Request Id :: 7555.6
+		Request Origin :: https://www.androidalerts.site/en/p/sw.js
+		Request URL :: https://adanny-indwance.com/impression/a2c6f988-93f1-4ab2-a9cf-5a798fd15584?Heading=5%20Unopened%20Notifications%20From%20Isabelle&Body=Can%20I%20see%20you?&Category=Sexy1&CatID=12345&Image=https://www.mediadownload.site/images/s/thumbnail-18.jpg&MsgID=2019-03-13%2014:10:00&AppID={AppID}&Source=undefined&Banner=&UserID=2404223
+	***
+	***
+		[Service Worker Request called @ 3/13/2019, 2:15:44 PM ]
+		Request Id :: 7555.7
+		Request Origin :: https://www.androidalerts.site/en/p/sw.js
+		Request URL :: https://www.mediadownload.site/images/s/thumbnail-18.jpg
+	***
+	***
+		[Service Worker Request called @ 3/13/2019, 2:15:44 PM ]
+		Request Id :: 7555.8
+		Request Origin :: https://www.androidalerts.site/en/p/sw.js
+		Request URL :: https://www.mediadownload.site/images/badges/badge-25.png
+	***
+[Visiting Page ended @ 3/13/2019, 2:29:14 PM ]
+
+LOG::saved

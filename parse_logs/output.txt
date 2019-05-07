@@ -1,0 +1,119 @@
+*************************************
+Events in chronological order
+*************************************
+
+
+	[2019-03-13 13:57:07.539407]
+		URL :: about:blank
+	[2019-03-13 13:57:08.829180]
+		URL :: https://www.androidalerts.site/en/p/?cid=wN7KRG1GOOGQOSDI16M6UF8S
+	[2019-03-13 13:57:09]
+		SW EVENT :: 		Service Worker Registered 
+		URL ::  https://www.androidalerts.site/en/p/sw.js
+
+	[2019-03-13 13:57:09]
+		SW EVENT :: 		Service Worker Request called 
+		URL ::  https://www.androidalerts.site/en/p/sw.js
+
+	[2019-03-13 13:57:11.276338]
+		URL :: http://track.niftytrack.xyz/voluum/2e5a639c-8965-441c-896a-364512d0e488
+	[2019-03-13 13:57:11.703051]
+		URL :: https://href.li/?http://m.niftyclick.xyz/?utm_medium=1d276ad247cb762149a18c6083edf36247b41d57&utm_campaign=All&cid=wHAA6D2R2FIMI11L18JQFGAO
+	[2019-03-13 13:57:11.748782]
+		URL :: http://m.niftyclick.xyz/?utm_medium=1d276ad247cb762149a18c6083edf36247b41d57&utm_campaign=All&cid=wHAA6D2R2FIMI11L18JQFGAO
+	[2019-03-13 13:57:12.768679]
+		URL :: http://m.niftyclick.xyz/?utm_term=6667936005502271601&clickverify=1&utm_content=e6c2c6dcd68fd49594fc9695a696a4968c8bb88f8a8fbcbddcb3c5b1b68482858abdbcb98ebdb8bd82b1b18186b684859aab98aa9ed8f3f2f5fff5b1dff9f7bbead9dce9dcdbecede285818d9582e4e5cbfbcbcfceffcac9c2f3c0c1c3cfc4c0a8fac8f9fefffcfdf2f1f8f9f6fff0fde3ebea74
+	[2019-03-13 13:57:13.065021]
+		URL :: http://m.niftyclick.xyz/proc.php?5c566e39bf2f2c9bbcd1cf9ba888fdf979757630
+	[2019-03-13 13:57:14.062130]
+		URL :: https://25g68.bemobtrk.com/go/2561a6cf-36a8-4754-aece-e5b4de962e43?clickid=6667936005502271601&pub=714&pid=714-a248a79z
+	[2019-03-13 13:57:14.064044]
+		URL :: https://www.fivehappyday.xyz/us/1125bemob/giftcard/giftcard2/index.html?bemobdata=c%3D2561a6cf-36a8-4754-aece-e5b4de962e43..a%3D0..b%3D0..e%3D6667936005502271601..c1%3D714..c2%3D714-a248a79z..r%3Dhttp%253A%252F%252Fm.niftyclick.xyz%252F%253Futm_term%253D6667936005502271601%2526clickverify%253D1%2526utm_content%253De6c2c6dcd68fd49594fc9695a696a4968c8bb88f8a8fbcbddcb3c5b1b68482858abdbcb98ebdb8bd82b1b18186b684859aab98aa9ed8f3f2f5fff5b1dff9f7bbead9dce9dcdbecede285818d9582e4e5cbfbcbcfceffcac9c2f3c0c1c3cfc4c0a8fac8f9fefffcfdf2f1f8f9f6fff0fde3ebea74
+	[2019-03-13 14:05:34]
+		SW EVENT :: 		Service Worker Request called 
+		URL ::  https://adanny-indwance.com/impression/a2c6f988-93f1-4ab2-a9cf-5a798fd15584?Heading=Google&Body=Your%20device%20is%20infected!&Category=AV&CatID=12345&Image=https://www.mediadownload.site/images/u/util-48.png&MsgID=2019-03-13%2014:00:00&AppID={AppID}&Source=undefined&Banner=&UserID=2404223
+
+	[2019-03-13 14:05:34]
+		SW EVENT :: 		Service Worker Request called 
+		URL ::  https://www.mediadownload.site/images/u/util-48.png
+
+	[2019-03-13 14:05:34]
+		SW EVENT :: 		Service Worker Request called 
+		URL ::  https://www.mediadownload.site/images/badges/badge-16.png
+
+	[2019-03-13 14:05:34.006451]
+		 NOTIFICATION :: { "heading":"Google", "body":"Your device is infected!", "icon":"https://www.mediadownload.site/images/u/util-48.png", "badge":"https://www.mediadownload.site/images/badges/badge-16.png", "category":"AV", "catid":"12345", "msgid":"2019-03-13 14:00:00", "source":"undefined", "sourceid":"12345", "placement":"undefined", "banner":"", "url":"http://adanny-indwance.com/a2c6f988-93f1-4ab2-a9cf-5a798fd15584", "userid":"2404223" }
+	[2019-03-13 14:05:34.012638]
+		 NOTIFICATION :: showNotification Called
+	[2019-03-13 14:05:34.014226]
+		 NOTIFICATION :: 7
+	[2019-03-13 14:05:34.014580]
+		 NOTIFICATION :: CreateWebNotification Called
+	[2019-03-13 14:05:34.014863]
+		 NOTIFICATION :: Notification shown: Google
+	[2019-03-13 14:06:30.947175]
+		 NOTIFICATION :: Notification click event called: service worker proxy
+	[2019-03-13 14:06:31.383226]
+		URL :: https://adanny-indwance.com/a2c6f988-93f1-4ab2-a9cf-5a798fd15584
+	[2019-03-13 14:06:31.411321]
+		URL :: https://href.li/?http://m.niftyclick.xyz/?utm_medium=1d276ad247cb762149a18c6083edf36247b41d57&utm_campaign=All&cid=wQU0NBAJBSMFS21L13UATKL8
+	[2019-03-13 14:06:31.480528]
+		URL :: http://m.niftyclick.xyz/?utm_medium=1d276ad247cb762149a18c6083edf36247b41d57&utm_campaign=All&cid=wQU0NBAJBSMFS21L13UATKL8
+	[2019-03-13 14:06:32.259253]
+		URL :: http://m.niftyclick.xyz/?utm_term=6667938406388991253&clickverify=1&utm_content=e6c2c6dcd68fd49594fc9695a6a7959d8f8eb8888e8a8abd80b3c5b1c3b7b48cbab988b0bfbe8cbfb6b380b28687b5859a9b98a89ed8f3f2f5fff5b1dff9f7bbead9dce9dcdbecede285818d9582e4e5cbfbc9c0cccffcccc2cbc0f1c6c7c1cdfafeaaf8cefffcfdf2f3f0f3fefff4fdeee3e1e9ec58
+	[2019-03-13 14:06:32.559302]
+		URL :: http://m.niftyclick.xyz/proc.php?53de0a35f0736b8445d0f61a2cf64e43fb97c9cf
+	[2019-03-13 14:06:34.417440]
+		URL :: https://www.tunhuodaren.com/15G74U?partnerid=714&cost=[[paid]]&external_id=6667938406388991253
+	[2019-03-13 14:06:34.418447]
+		URL :: https://www.mb01.com/lnk.asp?o=10547&c=918271&a=295486&k=06780D7EBF1CF04EA00150AD0AEB015B&l=10409&s2=2c6961e18c8b65eaa1cb728861857681-5977-0313&s2=2c6961e18c8b65eaa1cb728861857681-5977-0313
+	[2019-03-13 14:06:34.419432]
+		URL :: https://www.maxbounty.com/lnk.asp?o=10547&c=918271&a=295486&k=06780D7EBF1CF04EA00150AD0AEB015B&l=10409&s2=2c6961e18c8b65eaa1cb728861857681-5977-0313&s2=2c6961e18c8b65eaa1cb728861857681-5977-0313&mb_k=590972_10547_201931314633_81
+	[2019-03-13 14:06:34.420587]
+		URL :: http://c.juicetrck.com/?ge4=Yq5ak9CeH76SHXP7AoaT6UMM7m3wvh6f-FkARUzZo%2fdM%3d&s1=295486&s2=1296252429&s3=sweep&s4=10547&mb_k=590972_10547_201931314633_81
+	[2019-03-13 14:06:34.422068]
+		URL :: https://www.instantplaygiveawayentry.com/default.aspx?Flow=986AA455-9321-4317-D5CD-581E4BB7BD09A5D35BA4&o=207321&subaff1=295486&subaff2=199353&subaff3=52425&subaff4=instantplaygive&DVID=&mb_k=590972_10547_201931314633_81
+	[2019-03-13 14:15:44]
+		SW EVENT :: 		Service Worker Request called 
+		URL ::  https://adanny-indwance.com/impression/a2c6f988-93f1-4ab2-a9cf-5a798fd15584?Heading=5%20Unopened%20Notifications%20From%20Isabelle&Body=Can%20I%20see%20you?&Category=Sexy1&CatID=12345&Image=https://www.mediadownload.site/images/s/thumbnail-18.jpg&MsgID=2019-03-13%2014:10:00&AppID={AppID}&Source=undefined&Banner=&UserID=2404223
+
+	[2019-03-13 14:15:44]
+		SW EVENT :: 		Service Worker Request called 
+		URL ::  https://www.mediadownload.site/images/s/thumbnail-18.jpg
+
+	[2019-03-13 14:15:44]
+		SW EVENT :: 		Service Worker Request called 
+		URL ::  https://www.mediadownload.site/images/badges/badge-25.png
+
+	[2019-03-13 14:15:44.685735]
+		 NOTIFICATION :: { "heading":"5 Unopened Notifications From Isabelle", "body":"Can I see you?", "icon":"https://www.mediadownload.site/images/s/thumbnail-18.jpg", "badge":"https://www.mediadownload.site/images/badges/badge-25.png", "category":"Sexy1", "catid":"12345", "msgid":"2019-03-13 14:10:00", "source":"undefined", "sourceid":"12345", "placement":"undefined", "banner":"", "url":"http://adanny-indwance.com/a2c6f988-93f1-4ab2-a9cf-5a798fd15584", "userid":"2404223" }
+	[2019-03-13 14:15:44.700107]
+		 NOTIFICATION :: showNotification Called
+	[2019-03-13 14:15:44.701515]
+		 NOTIFICATION :: 7
+	[2019-03-13 14:15:44.702288]
+		 NOTIFICATION :: CreateWebNotification Called
+	[2019-03-13 14:15:44.702659]
+		 NOTIFICATION :: Notification shown: 5 Unopened Notifications From Isabelle
+	[2019-03-13 14:16:30.163165]
+		 NOTIFICATION :: Notification click event called: service worker proxy
+	[2019-03-13 14:16:30.642596]
+		URL :: https://href.li/?http://m.niftyclick.xyz/?utm_medium=1d276ad247cb762149a18c6083edf36247b41d57&utm_campaign=All&cid=wEPA82U3SO9EF21LHSTKKK3H
+	[2019-03-13 14:16:30.707902]
+		URL :: http://m.niftyclick.xyz/?utm_medium=1d276ad247cb762149a18c6083edf36247b41d57&utm_campaign=All&cid=wEPA82U3SO9EF21LHSTKKK3H
+	[2019-03-13 14:16:31.463813]
+		URL :: http://m.niftyclick.xyz/?utm_term=6667940979074402126&clickverify=1&utm_content=e6c2c6dcd68fd49594fc9695a6a7959d8f8eb8888e8a8abd80b3c5b1c3b7b48cbab988b0bfbe8cbfb6b380b38687b5859a9b98a89ed8f3f2f5fff5b1dff9f7bbead9dce9dcdbecede297929483e7e4d4facac1cbceffcdcdcac3f0c1c6c2ccc5ffa9f9c9fefffcfdf2f3f2f9fef7fcf1e2e2e8ebd4
+	[2019-03-13 14:16:31.763191]
+		URL :: http://m.niftyclick.xyz/proc.php?011e7370768f5e227ad9775fce3c3494d6ddfc0a
+	[2019-03-13 14:16:32.738576]
+		URL :: https://y91sv.bemobtrk.com/go/7fd93cca-5e74-4fa0-8357-f761de63f615?sid=6667940979074402126&pub=714&pid=714-a248a79z
+	[2019-03-13 14:16:32.740077]
+		URL :: http://cd-down.com/?a=45102&c=175964&s2=56rTkzJAEYzTsh87ufvj7H&s2=56rTkzJAEYzTsh87ufvj7H
+	[2019-03-13 14:16:32.741121]
+		URL :: http://cd-cont.com/?a=45102&c=175964&oc=70057&sr=t&s2=56rTkzJAEYzTsh87ufvj7H&ref=http%3A%2F%2Fm.niftyclick.xyz%2F%3Futm_term%3D6667940979074402126%26clickverify%3D1%26utm_content%3De6c2c6dcd68fd49594fc9695a6a7959d8f8eb8888e8a8abd80b3c5b1c3b7b48cbab988b0bfbe8cbfb6b380b38687b5859a9b98a89ed8f3f2f5fff5b1dff9f7bbead9dce9dcdbecede297929483e7e4d4facac1cbceffcdcdcac3f0c1c6c2ccc5ffa9f9c9fefffcfdf2f3f2f9fef7fcf1e2e2e8ebd4&vt=1552500992611&h=ebc5e7b879bd911f129db77faf8576caebe8c7a4&req=http%3A%2F%2Fcd-down.com%2F%3Fa%3D45102%26c%3D175964%26s2%3D56rTkzJAEYzTsh87ufvj7H%26s2%3D56rTkzJAEYzTsh87ufvj7H
+	[2019-03-13 14:16:32.879230]
+		URL :: http://cd-cont.com/?a=45102&c=175964&oc=70057&sr=t&s2=56rTkzJAEYzTsh87ufvj7H&ref=http%3A%2F%2Fm.niftyclick.xyz%2F%3Futm_term%3D6667940979074402126%26clickverify%3D1%26utm_content%3De6c2c6dcd68fd49594fc9695a6a7959d8f8eb8888e8a8abd80b3c5b1c3b7b48cbab988b0bfbe8cbfb6b380b38687b5859a9b98a89ed8f3f2f5fff5b1dff9f7bbead9dce9dcdbecede297929483e7e4d4facac1cbceffcdcdcac3f0c1c6c2ccc5ffa9f9c9fefffcfdf2f3f2f9fef7fcf1e2e2e8ebd4&vt=1552500992745&h=406d32b02548229d3c713b458ae6aedc5a9754fa&req=http%3A%2F%2Fcd-down.com%2F%3Fa%3D45102%26c%3D175964%26s2%3D56rTkzJAEYzTsh87ufvj7H%26s2%3D56rTkzJAEYzTsh87ufvj7H&us=557af867e8df4dd5ae4412c6f68b9fce
+	[2019-03-13 14:16:33.286171]
+		URL :: http://clicks.trkdapp.com/?pb=1401&cp=10449&clickid=eb9a0584af7b4c4d869ca3a9394a14f7ddd2&source=45102&subsource=
+	[2019-03-13 14:16:33.316968]
+		URL :: https://offers.trkdapp.com/unlimitedrewardswalmart/unlimitedrewardswalmart.php?transaction_id=tr7p3p5txpkw6b&publisher_id=1401
