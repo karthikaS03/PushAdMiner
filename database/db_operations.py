@@ -46,17 +46,17 @@ class DBOperator:
         self.cursor.close()
         self.conn.close()
 
-    def update_urls_table(self, url, campaign, url_type, domain, url_path):
+    def update_urls_table(self, id, url, campaign, url_type, domain, url_path):
         self.cursor.execute("""
             SELECT count FROM urls WHERE domain = %s
             AND url_path = %s AND campaign = %s""", (domain, url_path, campaign))
         if self.cursor.rowcount == 0:
             self.cursor.execute(
                 """
-                INSERT INTO urls (url, domain, url_path, class,
+                INSERT INTO urls (site_id, url, domain, url_path, class,
                                   campaign, count)
-                VALUES (%s, %s, %s, %s, %s, 1)""",
-                (url, domain, url_path, url_type, campaign))
+                VALUES (%s, %s, %s, %s, %s, %s, 1)""",
+                (id, url, domain, url_path, url_type, campaign))
         else:
             self.cursor.execute("""
                 UPDATE urls SET url = %s, count = count + 1
@@ -115,10 +115,10 @@ class DBOperator:
     # domain or url path. If both are same, we just update
     # an old entry even if the whole URL is different from the
     # stored one.
-    def insert_url(self, url, campaign, url_type):
+    def insert_url(self,id, url, campaign, url_type):
         domain, url_path = utils.split_url(url)
         time_seen = datetime.now()
-        self.update_urls_table(url, campaign, url_type, domain, url_path)
+        self.update_urls_table(id, url, campaign, url_type, domain, url_path)
         self.update_domains_seen_table(campaign, domain, time_seen)
         self.update_slds_table(domain)
         self.update_campaigns_table(campaign, time_seen)
