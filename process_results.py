@@ -35,10 +35,25 @@ def parse_results():
                                 extract_chain.parse_log(id, chrome_file,log_file)
                                 shutil.move(dir_path+file+'/'+str(i), processed_dir_path+file+'/'+str(i))
                         
-                
+def parse_results_urls():
+        dir_path = './event_logs/'
+        processed_dir_path = './processed_event_logs/'
+        for file in os.listdir(dir_path):		
+                id = file.replace('.log','')  
+                with open(dir_path+file,'r') as event_file:
+                        line = event_file.readline()
+                        dbo = db_operations.DBOperator()
+                        while line:
+                                if 'URL ::' in line:
+                                        url = (line.split('::')[1]).strip(' ')
+                                        #print(url)
+                                        dbo.insert_url(id, url,'','other')
+                                line = event_file.readline()
+                shutil.move(dir_path+file, processed_dir_path+file)
 
 if __name__ =='__main__':
         parse_results()
+        parse_results_urls()
         '''
         with open('parse_logs/9601.log','r') as f:
                 extract_chain.parse_log(0,f,'')
