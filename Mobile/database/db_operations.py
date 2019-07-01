@@ -172,11 +172,11 @@ class DBOperator:
             return False
         return False 
 
-    def insert_mobile_logs(self,, logs_obj):
+    def insert_mobile_logs(self, logs_obj):
         try:
             self.cursor.execute(
                     """
-                    INSERT INTO detailed_logs (pid, info, url, target_url, landing_url, timestamp)
+                    INSERT INTO mobile_detailed_logs (pid, info, url, target_url, landing_url, timestamp)
                     VALUES (%s, %s, %s, %s, %s, %s)""",
                     (logs_obj['pid'],
                     logs_obj['info'] , 
