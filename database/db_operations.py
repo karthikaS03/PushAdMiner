@@ -24,6 +24,13 @@ class DBOperator:
                 (SELECT domain FROM gsb WHERE last_flag IS TRUE)
             """)
         return [x[0] for x in self.cursor.fetchall()]
+    
+    def get_gsb_queryable_urls(self,):
+        self.cursor.execute("""
+            SELECT distinct url FROM urls WHERE url NOT IN
+                (SELECT domain FROM gsb WHERE last_flag IS TRUE)
+            """)
+        return [x[0] for x in self.cursor.fetchall()]
 
     def update_gsb_table(self, sld, result, query_time):
         flag = (result != "None")
@@ -144,8 +151,63 @@ class DBOperator:
             print(e)
             return False
         return False
-    
-    
+
+    def insert_logs(self,iteration, logs_obj):
+        try:
+            self.cursor.execute(
+                    """
+                    INSERT INTO detailed_logs (url_id, iteration, info, url, target_url, landing_url, timestamp)
+                    VALUES (%s, %s, %s, %s, %s, %s, %s)""",
+                    (logs_obj['log_id'],
+                    iteration,
+                    logs_obj['info'] , 
+                    logs_obj['url'] , 
+                    logs_obj['target_url'] , 
+                    logs_obj['landing_url'] , 
+                    logs_obj['timestamp'] ))
+            if self.cursor.rowcount == 1:
+                return True
+        except Exception as e:
+            print(e)
+            return False
+        return False 
+
+    def insert_mobile_logs(self, logs_obj):
+        try:
+            self.cursor.execute(
+                    """
+                    INSERT INTO detailed_logs (pid, info, url, target_url, landing_url, timestamp)
+                    VALUES (%s, %s, %s, %s, %s, %s)""",
+                    (logs_obj['pid'],
+                    logs_obj['info'] , 
+                    logs_obj['url'] , 
+                    logs_obj['target_url'] , 
+                    logs_obj['landing_url'] , 
+                    logs_obj['timestamp'] ))
+            if self.cursor.rowcount == 1:
+                return True
+        except Exception as e:
+            print(e)
+            return False
+        return False 
+
+    def insert_resource_info(self, id, iteration, file_name, file_hash):
+        try:
+            self.cursor.execute(
+                    """
+                    INSERT INTO resource_info (url_id, iteration, file_name, file_hash)
+                    VALUES (%s, %s, %s, %s)""",
+                    (id,
+                    iteration,
+                    file_name , 
+                    file_hash ))
+            if self.cursor.rowcount == 1:
+                return True
+        except Exception as e:
+            print(e)
+            return False
+        return False 
+
     def insert_service_wroker_event(self, sw_obj):
         try:
             self.cursor.execute(
