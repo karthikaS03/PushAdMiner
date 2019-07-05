@@ -156,7 +156,7 @@ class DBOperator:
         try:
             self.cursor.execute(
                     """
-                    INSERT INTO detailed_logs (url_id, iteration, info, url, target_url, landing_url, timestamp)
+                    INSERT INTO desktop_detailed_logs (url_id, iteration, info, url, target_url, landing_url, timestamp)
                     VALUES (%s, %s, %s, %s, %s, %s, %s)""",
                     (logs_obj['log_id'],
                     iteration,
