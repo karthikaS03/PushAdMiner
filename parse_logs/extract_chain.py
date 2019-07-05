@@ -211,13 +211,16 @@ class ChainExtractor(object):
     def update_redirections(self,local_frame, frame_id, dst, src, reason, timestamp):
         src = src.replace('"','').replace(' ','')
         src = src.strip('#')
+        
         if dst in self.all_urls:
             return True
+    
         if src not in self.all_urls:
             self.all_urls.add(src)
             self.ordered_urls.append((timestamp,src))
         self.all_urls.add(dst)
         self.ordered_urls.append((timestamp,dst))        
+        
         dst = {'timestamp':timestamp, 'local_frame_id':local_frame, 'target_frame_id':frame_id, 'target_url': dst}
         if src in self.frame_urls:  
             if reason in self.frame_urls[src]:         
@@ -226,6 +229,7 @@ class ChainExtractor(object):
                 self.frame_urls[src].update({reason:[dst]})           
         else:
             self.frame_urls[src] = {reason:[dst]}
+        
         return True
 
     # Process entries where frame or frame_root URLs are to be used based
@@ -298,6 +302,7 @@ class ChainExtractor(object):
             self.parent_frames[frame_id] = self.pending_window_open_frame_id
             self.child_frames[self.pending_window_open_frame_id].append(frame_id)
             self.pending_window_open_frame_id = None
+            
             return
 
      
@@ -305,6 +310,7 @@ class ChainExtractor(object):
         # Else (if no runner), then its a totally unexplained window open
         # We can atlead log the load frame.
         if entries['frame_url'].strip('"') != "about:blank":
+            
             self.load_frame_redirections[(frame_id, "URL", entries['load_url'])] = (
                                     (frame_id, "URL", entries['frame_url']), "Load Frame")           
             self.update_redirections(entries['local_frame_root'],frame_id,entries['load_url'],entries['frame_url'],'Load Frame', timestamp)
@@ -492,11 +498,11 @@ class ChainExtractor(object):
         if url  not in self.frame_urls:
             return redirections
         next_urls = self.frame_urls[url] 
-        #pprint.pprint(next_urls)
+        
         if not any(key in redirect_reasons for key in next_urls):
             return redirections        
         landing_url = ''
-        #print('*******Redirections*********')
+        
         for reason in redirect_reasons:
             if reason in next_urls:
                 redirect_items = next_urls[reason]
@@ -524,7 +530,7 @@ class ChainExtractor(object):
         for redirect in redirections:
             redirect['landing_url'] = landing_url
         self.ordered_urls.extend(redirections)
-        #pprint.pprint(redirections)
+       
         return redirections
     
 
@@ -534,14 +540,24 @@ class ChainExtractor(object):
             start_urls = self.frame_urls['']      
             #print('***************start urls***********************') 
             #pprint.pprint(start_urls)     
+            
             for item in start_urls['Load Frame']:
+                
                 url = item['target_url']
+                #url)
                 chain =self.find_redirect_chain(url)
+                #print(chain)
                 if len(chain)>0:
                     item['landing_url'] = chain[0]['landing_url']
                     item['from_url'] = ''
                     self.ordered_urls.append(item)
                     redirections.append({'initial_url':url,'redirection_chain':chain})
+                else:
+                    item['from_url']=''
+                    item['landing_url']=url
+                    
+                    self.ordered_urls.append(item)
+            #pprint.pprint(redirections)
         return redirections
                         
 
@@ -605,25 +621,33 @@ def format_logs_for_db(id, log_urls):
                 'timestamp':None,
                 }
         if 'info' in item:
-            log['info'] = item['info']
+            log['info'] = item['info'].strip()
         if 'sw_url' in item:
             log['url'] = item['sw_url']
         if 'target_url' in item:
-            log['target_url'] = item['target_url']
+            log['target_url'] = item['target_url'].strip()
         if 'message' in item:
-            log['info'] = item['message']
+            log['info'] = item['message'].strip()
             if 'Notification click' in item['message']:
                 k=ind+1
                 while k<len(log_urls):
                     next_item = log_urls[k]
                     if 'landing_url' in next_item:
-                        log['landing_url'] = next_item['landing_url']
+                        log['landing_url'] = next_item['landing_url'].strip()
+                        break
+                    k += 1
+            if 'Notification shown' in item['message']:
+                k=ind+1
+                while k<len(log_urls):
+                    next_item = log_urls[k]
+                    if 'landing_url' in next_item:
+                        log['landing_url'] = next_item['landing_url'].strip()
                         break
                     k += 1
         if 'landing_url' in item:
             log['info'] ='Redirect'
-            log['landing_url']= item['landing_url']
-            log['url'] = item['from_url']
+            log['landing_url']= item['landing_url'].strip()
+            log['url'] = item['from_url'].strip()
         if 'timestamp' in item:
             log['timestamp']=item['timestamp']
         formatted_logs.append(log)
@@ -638,11 +662,17 @@ def parse_log(id, chrome_log_file, sw_log_file):
     sw_logs = service_worker_requests_logs(id, sw_log_file)
     logs_urls = logs_urls + sw_logs 
     logs_urls.sort(key=lambda r: r['timestamp'])
-    #print('***** Detailed Logs*********')
-    #pprint.pprint(logs_urls)
+   
+
     return format_logs_for_db(id,logs_urls)
 
     '''
+     print('***** Detailed Logs*********')
+    pprint.pprint(logs_urls)
+   
+    
+    print('*******Redirection chains************')
+    pprint.pprint(redirections)
     print('***** Detailed Logs*********')
     pprint.pprint(logs_urls)
     
