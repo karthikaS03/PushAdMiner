@@ -18,7 +18,7 @@ async function load_page(url,id,i_count,wait_time){
   var count = 0
   
   // Viewport && Window size
-  const width = 1360
+  const width = 650
   const height = 1020
   
   await puppeteer.launch({ headless:false,  executablePath:'/home/pptruser/chromium/chrome',
@@ -28,8 +28,8 @@ async function load_page(url,id,i_count,wait_time){
                                 '--no-sandbox',
                                 '--disable-setuid-sandbox',
                                 '--window-size=${ width },${ height }',
-                                '--start-maximized',
-                                '--ignore-certificate-errors' ]
+                                //'--start-maximized',
+                                '--ignore-certificate-errors','--disable-gpu', '--disable-software-rasterizer', '--disable-infobars' ]
                          }).then(async browser => 
     {
         
@@ -50,7 +50,7 @@ async function load_page(url,id,i_count,wait_time){
           browser.on('targetcreated', async function(target){    
         
               if(target._targetInfo.type=='page'){
-                
+                var p = await target.page()
                 await setTimeout(async function() {                  
                    var screenshot = require('screenshot-desktop');
                     var dir = '/home/pptruser/screenshots/'+id
@@ -60,8 +60,7 @@ async function load_page(url,id,i_count,wait_time){
                     dir = dir +'/pages/'
                     if (!fs.existsSync(dir)){
                           fs.mkdirSync(dir);
-                    }
-                    var p = await target.page()
+                    }                    
                     //await p.screenshot({ path: dir+id+'_'+i_count+'_'+target._targetId+'_page.png', type: 'png' });
 
                     var file_name = dir+id+'_'+i_count+'_'+target._targetId+'.png';
@@ -121,11 +120,13 @@ async function load_page(url,id,i_count,wait_time){
                   service_workers_hooks[sw.url()] =1
               sw.on('response',  async res => {
                 //stream.write(res.url())  
+                try{
                 var file_name = res.url().split('/').pop()
                 var text = await res.text()
                 fs.writeFile(resources_path+file_name, text, 'utf8', (err) => {              
                   stream.write('\t\tResponse file saved');
-                });
+                });}
+                catch(err){console.log(err)}
                 //await console.log(text)    
               })  
               
@@ -194,7 +195,7 @@ async function load_page(url,id,i_count,wait_time){
           //await page.waitFor(4000); 
           console.log('page visited')
           console.log(the_interval)
-          var wait_interval = 7500
+          var wait_interval = 5000
           count=0          
           
           var trigger = await setInterval(async function() {
@@ -316,8 +317,14 @@ async function load_page(url,id,i_count,wait_time){
         catch(error){
           stream.write('ERROR::'+error)        
           console.log(error)
+          /*
+          try{
+            await browser.close();
+          }
+          catch(error){}
+          */
           return  
-          //await browser.close();
+          
           /*
           await fs_extra.move('/home/pptruser/chromium/chrome_debug.log', '/home/pptruser/logs/notification_'+(id)+'.log', function (err) {
               if (err) 
