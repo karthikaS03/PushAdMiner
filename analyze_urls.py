@@ -12,7 +12,7 @@ from api_calls import api_requests
 
 import logging
 
-logging.basicConfig(filename='output2.log', filemode='w', format='%(name)s - %(levelname)s - %(message)s',level=logging.INFO)
+logging.basicConfig(filename='output_new.log', filemode='w', format='%(name)s - %(levelname)s - %(message)s',level=logging.INFO)
 
 client = docker.from_env()
 
@@ -42,7 +42,7 @@ def process_urls_parallel(analysis_urls, script_file, container_timeout, max_con
 					id, v_count = futures.pop(future)				
 					try:
 						#res = future.result()
-						print (get_time() + 'Container_'+ str(id) +': Completed successfully!!'	)	
+						logging.info(get_time() + 'Container_'+ str(id) +': Completed successfully!!'	)	
 					except concurrent.futures.TimeoutError as ex:
 						logging.info(get_time() +  'Container_' + str(id) +': Timeout occured!!')
 					except Exception as exc:
@@ -54,10 +54,10 @@ def process_urls_parallel(analysis_urls, script_file, container_timeout, max_con
 						processed_url_ids.add(id)	
 			except Exception as e:
 				for future in futures.keys():
-					id = futures.pop(future)				
+					id, v_count = futures.pop(future)				
 					try:
 						#res = future.result()
-						print (get_time() + 'Container_'+ str(id) +': Completed successfully!!'	)	
+						logging.info(get_time() + 'Container_'+ str(id) +': Timeout Occured!!'	)	
 					except concurrent.futures.TimeoutError as ex:
 						logging.info(get_time() +  'Container_' + str(id) +': Timeout occured!!')
 					except Exception as exc:
@@ -80,7 +80,6 @@ def process_urls_parallel(analysis_urls, script_file, container_timeout, max_con
 	return processed_url_ids
 
 def stop_running_containers():
-	
 	for c in client.containers.list():
 		print (c)			
 		c.stop()
@@ -88,20 +87,22 @@ def stop_running_containers():
 
 def fetch_urls_with_notifications(count):
 	if count>0:
-		logging.info('Fetching URLS')
+		logging.info('Fetching URLS ::'+str(count))
 		results = api_requests.fetch_urls_api(count,'true','true')
 		crawl_urls={}
 		for item in results:
 			id = item[0]
 			url = item[1]
 			crawl_urls[str(id)]={'url': url,'count':0}
-			
+			api_requests.update_url_api(id,'visit_status','4')
 		return crawl_urls
 	return {}
 
 def process_urls_with_notifications():	
+
 	URL_COUNT = 500
 	notification_urls  =  fetch_urls_with_notifications(URL_COUNT)
+
 	'''
 	notification_urls={'953':{'url':'https://goalhighlight.site/','count':0},
 	'475':{'url':'https://kingofgym.com/','count':0},
@@ -122,15 +123,16 @@ def process_urls_with_notifications():
 			api_requests.update_url_api(id,'is_analyzed_desktop','true')
 			api_requests.update_url_api(id,'visit_status','5')
 		logging.info(processed_ids)
-		notification_urls = {id:notification_urls[id] for id in processed_ids}
+		notification_urls = {id:info for id,info in notification_urls.items() if info['count']>0 or id in processed_ids}
 		for key in notification_urls.keys():
 			itm = notification_urls[key]
 			if itm['count']==10:
 				notification_urls.pop(key)
 			else:
 				itm['count'] = itm['count']+1
-		logging.info(notification_urls)
+		
 		notification_urls.update(fetch_urls_with_notifications(URL_COUNT-len(notification_urls)))
+		logging.info(notification_urls)
 		time.sleep(1800)
 		
 	

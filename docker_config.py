@@ -3,7 +3,7 @@ import os
 project_dir = os.getcwd()
 
 #Docker
-docker_image = 'dockerammu/docker_puppeteer_chromium_xvfb:ver1'
+docker_image = 'dockerammu/docker_puppeteer_chromium_xvfb:ver4'
 docker_user = 'pptruser'
 docker_container_home = '/home/pptruser/'
 docker_shared_dir_root = project_dir
@@ -20,5 +20,5 @@ notification_collection_script = 'capture_notifications.js'
 
 CRAWL_MAX_CONTAINERS = 10
 CRAWL_TIMEOUT = 180
-ANALYSIS_MAX_CONTAINERS = 5
+ANALYSIS_MAX_CONTAINERS = 30
 ANALYSIS_TIMEOUT = 1000

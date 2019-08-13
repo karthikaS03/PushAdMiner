@@ -11,7 +11,7 @@ client = docker.from_env()
 
 
 logging.basicConfig(filename='output2.log', filemode='w', format='%(name)s - %(levelname)s - %(message)s',level=logging.INFO)
-
+export_path = './results_new/container_'
 
 def get_time():
 	currentDT = datetime.datetime.now()
@@ -27,12 +27,12 @@ def initiate_container(url, id, script_name, iteration_count,  container_timeout
         container = client.containers.get('container_'+str(id))
         container.start()
         logging.info(get_time() + 'container_'+id+' created successfully!!')    
-        api_requests.update_url_api(id,'visit_status','4')
+        #api_requests.update_url_api(id,'visit_status','4')
         ## wait for display to be activated ##
-        time.sleep(15)
+        time.sleep(10)
         execute_script(url, id, script_name,  iteration_count, container_timeout-100)
     except Exception as e:
-        print(e) 
+        logging.info(e) 
 
 def execute_script(url, id, script_name,  iteration_count, container_timeout):	
     ## Execute javascript file
@@ -46,12 +46,15 @@ def execute_script(url, id, script_name,  iteration_count, container_timeout):
     logging.info(get_time() +'container_'+id+': Execution complete!!')	
 
 def stop_container(id):
-    container = client.containers.get('container_'+str(id))
-    if container:
-        logging.info(get_time() + 'container_'+id+' stopping!!')
-        container.pause()
-        time.sleep(2)
-        container.stop()
+    try:
+        container = client.containers.get('container_'+str(id))
+        if container:
+            logging.info(get_time() + 'container_'+id+' stopping!!')
+            container.pause()
+            time.sleep(2)
+            container.stop()
+    except Exception as e:
+        logging.info(e)
 
 def remove_containers():
     while client.containers.list():		
@@ -71,7 +74,7 @@ def resume_container(url, id, script_name, iteration_count, container_timeout):
 def export_container(id, count):
     container = client.containers.get('container_'+str(id))
     logging.info(get_time() + 'container_'+id+'_'+str(count)+' exporting files!!')
-    dir_path = './results/container_'+id+'/'
+    dir_path = export_path+id+'/'
     if not os.path.exists(dir_path):
         os.makedirs(dir_path)
     dir_path = dir_path+ str(count)+'/'
@@ -102,7 +105,7 @@ def export_container(id, count):
 def check_if_success(id,count):
     import tarfile
     logging.info(get_time() + 'container_'+id+' checking status!!')
-    log_tar_dir = 'results/container_'+id+'/'+str(count)+'/logs.tar'
+    log_tar_dir = export_path+id+'/'+str(count)+'/logs.tar'
     t = tarfile.open(log_tar_dir,'r')
     log_name = 'logs/'+id+'_sw.log'
     res=-99
@@ -120,7 +123,7 @@ def docker_prune():
     try:
         client.containers.prune()		
     except Exception as e:
-        logging.info(e	)
+        logging.info(e)
 
 
 def test():
