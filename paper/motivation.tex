@@ -1,0 +1,27 @@
+\section{Motivation}
+Over the last few years, the advertisement industry has been constantly evolving to stay in par with its user base. The increase in number of mobile users and user tracking technologies allow advertisers to serve ads in a more efficient manner. One such trending change is the advertisers and website owners opting to serve ads through Web Push Notifications(WPNs) on mobile and desktop. Megapush is one of the first ad networks to start serving ads through WPNs and currently it has over 450 million subscribers. The main reason for ad networks to prefer WPNs over traditional online ads is that delivery won't be curbed by third party ad blockers. Unfortunately, delivering ads through WPNs open a wide arena for scammers to reach large number of potential victims as well. During our initial stages of research, we had visited a website \texttt{https://aurolog.ru}. When it requested for notification permission, we granted permission by pressing the allow button on the browser dialog box. Please refer Fig.\ref{tech_scam} for a visual representation of the case. Next, we had received an ad with an alert message 'Your payment info has been leaked'. When we proceed and click the notification, we were redirected to a tech support scam web page, as shown in Fig.\ref{tech_scam}. To our surprise, the landing URL was not blacklisted by Google Safe Browsing or detected as malicious by Virus Total. This made us wonder how many more such cases exist and how else are the advertisers utilizing WPN ads. In order to better understand the push advertising ecosystem and it's reach in the real world, we develop a system  \sysname that automatically subscribes to push notification ads, interacts with the ads and tracks any information related to the notification service.Although the discussed example is a malicious one, we do not limit our focus to finding only malicious advertisements. Using our system \sysname, we were able to successfully track over 7000 advertisements delivered through push notifications. 
+
+\begin{figure*}[ht]
+\begin{center}
+\includegraphics[scale=0.07]{figs/tech_scam.pdf}
+\caption{Example of malicious advertisement served through push notification}
+\label{tech_scam}
+\end{center}
+\end{figure*}
+
+The major goal of our system is to perform a study on the existing push advertising ecosystem. To begin with, we need to ensure the following requirements to achieve our goal.
+
+\begin{itemize}
+    \item Effectively collect a detailed log of events that happen during multiple stages of Web Push Notification
+    \item To a full extent, automate all user actions that are required during these multiple stages
+    \item Design a system that can be scaled and ported to any web platform
+    \item Perform analysis on advertisements offered by all Web Push Ad networks irrespective of their popularity
+    \item Design a systematic way to analyze large amounts of data and perform an extensive study on the data collected to provide measurements related to push advertising ecosystem 
+    \item Ensure that the system can be implemented in desktop and mobile environment thus providing us insight on push advertising in both environments. 
+\end{itemize}
+
+
+
+
+
+

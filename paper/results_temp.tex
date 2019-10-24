@@ -1,0 +1,71 @@
+\section{Results}
+
+Notifications Collected  could be viewed from this URL : http://172.19.48.78/info.php
+
+
+\begin{figure}[h]
+\includegraphics[width=\columnwidth]{figs/sw_reg_distribution.pdf}
+\caption{Service Worker and Permission Request Time Distribution. \samuel{This graph is based on the logs collected from XXX websites}}
+\label{sw_reg_time}
+\end{figure}
+
+\subsection{Observations}
+\begin{itemize}
+    \item Notifications collected are from different languages
+    \item Suspicious notification types are "PC repair", "Payment fraud" , "Adult content"
+\end{itemize}
+
+\subsection{Steps to Identify Malicious Notifications}
+\begin{itemize}
+    \item Check URLs against Google Safe browsing list
+    \item classify malicious URLS based on notification title and body content
+\end{itemize}
+
+"You are being Tracked ⚠️"	"Click here to protect your privacy"
+\newline
+"Welcome: 2500 in Bonuses"	"Claim 150 up to 500 on you five deposits."
+\newline
+"Amazon Secret to 1 Trillion USD!"	"Watch on Youtube Video Here!"	"https://kingofgym.com/"
+\newline
+"Do You Want to Win? Click Here!"	"You’ve been personally selected to take part in our 2019 Annual Visitor Survey! ..."	"https://install.pdf-maker.com/sw-loader.js"
+\newline
+"Use This Genius Method To Get Over 50 HD Channels In U.S."	"[Read More...]"	"https://install.incognitosearches.com/sw-loader.js"
+\newline
+"Hide IP, access ANY content,"	"protect browser from tracking now:..."	"https://koora-fast.com/sw.js?v=3.1.29&o=2c7ca1b72e7f4170a9e058b67498c8c7&pub=0&p=2506352&trace_id=687fef0a-c5c2-43d0-b8c6-db82e349581d"
+\newline
+"Fastest PDF converter"	"Free tool. No Ads. Get now>"	"https://koora-fast.com/sw.js?v=3.1.29&o=2c7ca1b72e7f4170a9e058b67498c8c7&pub=0&p=2506352&trace_id=687fef0a-c5c2-43d0-b8c6-db82e349581d"
+\newline
+"129022"	"Your Protection has Expired ⚠"	"Reactivate McAfee now to stay protected for y"	"https://not-robot.com/rb_serviceworker.js"
+\newline
+"129022"	"Mcafee License Expired Today⚠️"	"Reactivate now to stay protected for your PC"	"https://not-robot.com/rb_serviceworker.js"
+\newline
+"129022"	"Government Grants Available ��"	"No Payback Money Available For Funding a Business, School or Pay Off Bills!"	"https://not-robot.com/rb_serviceworker.js"
+\newline
+"129022"	"(5) new friend requests"		"https://not-robot.com/rb_serviceworker.js"
+\newline
+\newline
+\newline
+"Great Opportunity To Inve"	"Great Opportunity To Inve"	"https://groshi.work/swnhrj.js"
+\newline
+"K. (26) left you a message"	"Hi babe ..."	"https://groshi.work/swnhrj.js"
+\newline
+\newline
+"You From Athens & Single?"	"These Russian Women Will Drive You Wild!"	"https://groshi.work/swnhrj.js"
+\newline
+"Drivers are furious about this"	"Drivers are furious about this"	"https://groshi.work/swnhrj.js"
+\newline
+
+
+Same service-worker file used by two different websites showing suspicious ads
+
+"161540"	"Your payment info has been leaked!"	"Please fix this problem to avoid losing your deposit."	"https://klepa-i-misha.com/swnhrj.js"
+"161540"	"You are being Tracked ⚠️"	"Click here to protect your privacy"	"https://klepa-i-misha.com/swnhrj.js"
+"161540"	"Anna sent you (5) pictures"	"She's from Athens & waiting for you."	"https://klepa-i-misha.com/swnhrj.js"
+
+
+"162148"	"Your payment info has been leaked!"	"Please fix this problem to avoid losing your deposit."	"https://notepad.ge/swnhrj.js"	"https://click.mppmnetwork.com/v2/click/"
+"162148"	"Do You Like Gift Cards?"	"Take Surveys & Get Giftcards !!"	"https://notepad.ge/swnhrj.js"	"https://click.mppmnetwork.com/v2/click/"
+"162148"	"You are being Tracked ⚠️"	"Click here to protect your privacy"	"https://notepad.ge/swnhrj.js"	"https://click.mppmnetwork.com/v2/click/"
+"162148"	"Can CBD Really Help Back Pain?"	"Top Doctors Agree.  Prescribe CBD Oil At A Record Pace"	"https://notepad.ge/swnhrj.js"	"https://click.mppmnetwork.com/v2/click/"
+"162148"	"You are being Tracked ⚠️"	"Click here to protect your privacy"	"https://notepad.ge/swnhrj.js"	"https://click.mppmnetwork.com/v2/click/"
+"162148"	"Realistic 3D game"	"Realistic 3D game"	"https://notepad.ge/swnhrj.js"	"https://click.mppmnetwork.com/v2/click/"
