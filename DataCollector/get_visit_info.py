@@ -7,10 +7,10 @@ import logging
 logging.basicConfig(filename='output.log', filemode='w', format='%(name)s - %(levelname)s - %(message)s',level=logging.INFO)
 
 
-dir_path = './logs_backup/'
+dir_path = './visit_logs/'
 url_ids = []
 
-
+''' Helper Method  '''
 def get_activity_timestamp(data, sub_text)
     indexes = map(str,range(len(data)))
     res = int(filter(lambda (i,x): sub_text in x, zip(indexes,data))[0][0])
@@ -23,7 +23,7 @@ def get_activity_timestamp(data, sub_text)
             break
     return timestamp
 
-def parse_chrome_log(dir_path,id):        
+def get_request_duration(dir_path,id):        
     chrome_tar_dir = dir_path+'container_'+id+'/chrome_log.tar'
     t = tarfile.open(chrome_tar_dir,'r')
     chrome_log_name = 'chrome_debug.log'
@@ -92,7 +92,7 @@ def parse_log(dir_path, id):
             info['error'] = data
         elif status ==0:
             info['error'] = data
-        sw_req, perm_req = parse_chrome_log(dir_path,id)
+        sw_req, perm_req = get_request_duration(dir_path,id)
         info['sw_reg_at'] = sw_req
         info['permission_req_at'] = perm_req
         print(info)

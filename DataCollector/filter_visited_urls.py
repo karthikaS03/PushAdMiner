@@ -7,7 +7,7 @@ import logging
 logging.basicConfig(filename='output.log', filemode='w', format='%(name)s - %(levelname)s - %(message)s',level=logging.INFO)
 
 
-dir_path = './logs_backup/'
+dir_path = './logs/'
 url_ids = []
 
 def check_permission_request():

@@ -37,12 +37,12 @@ def process_urls_parallel(analysis_urls, script_file, container_timeout, max_con
 				id = futures.pop(future)	
 				res = -1			
 				try:
-					res = future.result(timeout=container_timeout)			
-							
+					res = future.result(timeout=container_timeout)		
 				except Exception as exc:
 					print(get_time() +  'Container_' + str(id) +': Exception ')
-					print(exc)					
-				
+					print(exc)				
+
+				res = export_log(id)	
 				if res >0:
 					print (get_time() + 'Container_'+ str(id) +': URL Visited successfully!!')
 					api_requests.update_url_api(id,'is_visited','true')
@@ -79,8 +79,7 @@ def fetch_urls_for_crawling():
 		id = item[0]
 		url = item[1]
 		crawl_urls[id]=url
-		api_requests.update_url_api(id,'visit_status','-1')
-		
+		api_requests.update_url_api(id,'visit_status','-1')		
 	return crawl_urls
 
 def crawl_urls_for_permission_requests():
@@ -92,9 +91,6 @@ def crawl_urls_for_permission_requests():
 		time.sleep(600)
 		docker_prune()
 		
-	
-
-
 def main():	
 	stop_running_containers()
 	docker_prune()

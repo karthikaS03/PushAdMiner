@@ -3,6 +3,7 @@ import os
 import time
 import datetime
 import logging
+import tarfile
 
 from docker_config import *
 from api_calls import api_requests
@@ -112,6 +113,35 @@ def export_container(id, count):
         for chunk in bits:
             f.write(chunk)
     return check_if_success(id,count)
+
+def export_log(id):
+	container = client.containers.get('container_'+str(id))
+	print(get_time() + 'container_'+id+' exporting files!!')
+	dir_path = './permission_results/container_'+id+'/'
+	if not os.path.exists(dir_path):
+		os.makedirs(dir_path)
+	with open(dir_path+'chrome_log.tar', 'w') as f:
+		bits, stat = container.get_archive('/home/pptruser/chromium/chrome_debug.log')
+		for chunk in bits:
+	    		f.write(chunk)
+	with open(dir_path+'logs.tar', 'w') as f:
+		bits, stat = container.get_archive('/home/pptruser/logs/')
+		for chunk in bits:
+	    		f.write(chunk)
+	log_tar_dir = 'permission_results/container_'+id+'/logs.tar'
+	t = tarfile.open(log_tar_dir,'r')
+	log_name = 'logs/'+id+'_sw.log'
+	res=-99
+	err=-1
+	if log_name in t.getnames():
+		f = t.extractfile(log_name)
+		data = f.read()
+		res = data.find('Page Load Complete')
+		err = data.find('Chromium Crashed')
+	if err>-1:
+		return -99
+	stop_container(id)
+	return res
 
 def export_screenshot(id):
     container = client.containers.get('container_'+str(id))    
