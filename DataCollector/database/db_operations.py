@@ -27,17 +27,11 @@ class DBOperator:
 
     def get_seed_urls(self,):
         self.cursor.execute("""
-            SELECT seed_url_id,seed_url FROM seed_urls_top WHERE is_analyzed_desktop=true and visit_status=111
+            SELECT seed_url_id,seed_url FROM seed_urls WHERE has_permission_request=true and visit_status=1
             """)
         return [x for x in self.cursor.fetchall()]
 
-    def get_seed_urls2(self,):
-        self.cursor.execute("""
-            SELECT seed_url_id,seed_url FROM seed_urls_top WHERE has_permission_request=true and visit_status=1
-            """)
-        return [x for x in self.cursor.fetchall()]
-
-
+    
     def get_gsb_queryable_urls(self,):
         self.cursor.execute("""
             SELECT distinct url FROM urls WHERE url NOT IN
@@ -182,7 +176,7 @@ class DBOperator:
         try:
             self.cursor.execute(
                     """
-                    INSERT INTO notification_details_latest (sw_url_id,notification_title, notification_body,notification_count, target_url, image_url, sw_url, timestamp)
+                    INSERT INTO notification_details (sw_url_id,notification_title, notification_body,notification_count, target_url, image_url, sw_url, timestamp)
                     VALUES (%s, %s, %s, %s, %s, %s, %s, %s)""",
                     (notification_obj['log_id'],
                     notification_obj['push_notification_title'] , 
@@ -223,7 +217,7 @@ class DBOperator:
         try:
             self.cursor.execute(
                     """
-                    INSERT INTO desktop_detailed_logs_adguard (url_id, iteration, info, url, target_url, landing_url, timestamp)
+                    INSERT INTO desktop_detailed_logs (url_id, iteration, info, url, target_url, landing_url, timestamp)
                     VALUES (%s, %s, %s, %s, %s, %s, %s)""",
                     (logs_obj['log_id'],
                     iteration,
